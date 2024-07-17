@@ -3,7 +3,6 @@ import pygame
 import time
 
 theta_spacing = 0.06981317007977318
-# phi_spacing = 0.78853981633974483
 phi_spacing = 0.052359877559982988
 R1 = (200, 0, 0)
 R2 = 100
@@ -38,16 +37,12 @@ def render():
 
                 rx = x
                 ry = y * math.cos(angle) - z * math.sin(angle)
+                rz = y * math.sin(angle) + z * math.cos(angle)
 
-                rx = rx * math.cos(-angle) - ry * math.sin(-angle)
-                ry = x * math.sin(-angle) + ry * math.cos(-angle)
-                px = (d * -y) / (z + 4500)
-                py = (d * -ry) / (z + 4500)
+                px = (d * rx) / (rz + 4500) + width // 2
+                py = (d * ry) / (rz + 4500) + height // 2
 
-                px = int(px + width // 2)
-                py = int(py + height // 2)
-
-                pygame.draw.circle(screen, (255, 255, 255), (px, py), 1)
+                pygame.draw.circle(screen, (255, 255, 255), (int(px), int(py)), 1)
 
         pygame.display.flip()
         clock.tick(60)
